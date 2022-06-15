@@ -7,7 +7,13 @@ const routes: Array<RouteRecordRaw> = [
     name: 'home',
     // component: HomeView
     component: import(/* webpackChunkName: "about" */ '../views/graphView.vue')
-  }
+  },
+  {
+    path: '/about',
+    name: 'about',
+    // component: HomeView
+    component: import(/* webpackChunkName: "about" */ '../views/graphView.vue')
+  },
 ]
 
 const router = createRouter({
