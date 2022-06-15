@@ -230,13 +230,13 @@ export default defineComponent({
           for (let j=0; j<node_list.length;j++){
             sum += this.findRealEstateVal(node_list[j])
           }
-          //console.log(node_list, sum)
+          console.log("sum", sum, "level" ,i)
           // multiply sum of real estate value as sum*100 and use -sum*100 to +sum*100 as the range of x-vals, split up this range based on ratio of RE and assign each node the midpoint of the space provided to it
           let x_range = sum*200
-          let x_pos = 0
+          let x_pos = -sum*100
           for (let j=0; j<node_list.length;j++){
             layout[node_list[j]] = { x: x_pos + (this.findRealEstateVal(node_list[j])/sum * x_range)/2, y:-100*table[node_list[j]+1][6]} 
-            x_pos += this.findRealEstateVal(node_list[j])*x_range/sum
+            x_pos += this.findRealEstateVal(node_list[j])/sum*x_range
           }
         }
         //console.log("layout new", layout)
