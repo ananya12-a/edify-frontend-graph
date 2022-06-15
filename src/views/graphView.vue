@@ -1,5 +1,8 @@
 <template>
-    <networkGraph sheetName="Electronics Track"/>
+  <div>
+      <h1>HELLO</h1>
+      <networkGraph sheetName="Electronics Track"/>
+  </div>
 </template>
 
 <script lang="ts">
