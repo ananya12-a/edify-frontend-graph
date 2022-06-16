@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <networkGraph sheetName="Electronics Track"/>
+  <div id="app">
+    <networkGraph sheetName="Electronics Track" />
   </div>
 </template>
 
@@ -22,3 +22,9 @@ export default defineComponent({
   },
 })
 </script>
+
+<style>
+body{
+  background-color: #212121
+}
+</style>

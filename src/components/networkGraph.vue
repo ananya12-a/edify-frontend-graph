@@ -1,15 +1,18 @@
 <template>
-  <v-network-graph
-    :nodes='nodes'
-    :edges='edges'
-    :configs='configs'
-    :layouts="layouts"
-    :event-handlers="eventHandlers"
-  >
-  <!--<template #edge-label="{ edge, ...slotProps }">
-      <v-edge-label :text="edge.label" align="center" vertical-align="above" v-bind="slotProps" />
-  </template>-->
-  </v-network-graph>
+  <div>
+    <v-network-graph
+      :nodes='nodes'
+      :edges='edges'
+      :configs='configs'
+      :layouts="layouts"
+      :event-handlers="eventHandlers"
+    >
+    <!--<template #edge-label="{ edge, ...slotProps }">
+        <v-edge-label :text="edge.label" align="center" vertical-align="above" v-bind="slotProps" />
+    </template>-->
+    
+    </v-network-graph>
+  </div>
 </template>
 
 <script lang='ts'>
@@ -58,8 +61,26 @@ export default defineComponent({
       })
     )
     const eventHandlers: vNG.EventHandlers = {
-      "node:click": ({ node }) => {
-        console.log("clicked ", node)
+      "node:click": ({ node ,  event: MouseEvent}) => {
+        console.log("clicked ", node, event)
+        const url = 'https://docs.google.com/spreadsheets/d/1l8NALL87S5_vra7CM6UCBXBNTI7dY4kkIE1fO2GYBkw/gviz/tq?tqx=out:csv&sheet=Electronics%20Track'// 'https://docs.google.com/spreadsheets/d/1l8NALL87S5_vra7CM6UCBXBNTI7dY4kkIE1fO2GYBkw/edit?usp=sharing'
+        axios.get(url)
+          .then(res => {
+            let csv = res.data
+            const table : string[] = []
+            for (let i = 0; i < csv.split('\n').length; i++) {
+                let row = csv.split('\n')[i]
+                row = row.split(',')
+                for (let j = 0; j < row.length; j++) {
+                  row[j] = row[j].substring(1, row[j].length - 1)
+                }
+                table.push(row)
+            }
+            if (table[parseInt(node)+1][5] != '') window.open(table[parseInt(node)+1][5], '_blank');
+            //console.log("link", table[parseInt(node)+1][5])
+            //console.log("table node", table)
+          })
+        //window.open('https://www.codexworld.com', '_blank');
       },
     }
     return { configs, eventHandlers }
@@ -75,7 +96,7 @@ export default defineComponent({
         //console.log(this.csv)
         // console.log(res.data.split('<table')[2])
         this.csv = this.csvToArray(this.csv)
-        // console.log(this.csv)
+        console.log("csv", this.csv)
       })
   },
   methods : {
@@ -291,7 +312,8 @@ export default defineComponent({
       ],
       layouts : {
         nodes: {}
-      }
+      },
+      display : false
     }
   }
 })

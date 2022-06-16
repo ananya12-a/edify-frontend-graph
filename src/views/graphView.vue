@@ -1,6 +1,6 @@
 <template>
   <div>
-      <h1>HELLO</h1>
+      <h3>HELLO</h3>
       <networkGraph sheetName="Electronics Track"/>
   </div>
 </template>
